@@ -1,0 +1,70 @@
+//pragma solidity ^0.4.18;
+
+
+contract TutorContract {
+  // is this an optimal size?
+  type fxp is int64;
+
+  string[] questions;
+  uint8[] answers;
+  fxp[] weights;
+  fxp[] points;
+  uint8 progress;
+  fxp grade;
+
+  /*
+  enum Error {
+      TooSmallAmount,
+      TooPoor,
+      WrongAnswer,
+      InternalError,
+  }
+  */
+
+  event Answered(bool correct);
+
+  constructor(string[] q, string[] a) {
+      questions = q;
+      answers = a;
+      weights = [2000000, 1500000, 900000, 200000];
+      points = [1000000, 1000000, 1000000, 1000000, 1000000];
+      progress = 0;
+      grade = 0;
+  }
+
+  function fxp_mul(fxp x, fxp y) returns (fxp) {
+      return x * y / 1000000;
+  }
+
+  function dot_product(fxp[] xs, fxp[] ys) returns (fxp) {
+      assert(xs.length == ys.length);
+      fxp product = 0;
+      for (uint8 i = 0; i < xs.length; i++) {
+	      product += fxp_mul(xs[i], ys[i]);
+      }
+      return product;
+  }
+
+  function calculate_grade() returns (fxp) {
+      return dot_product(weights, points);
+  }
+
+  function get_current_question() public returns (string memory) {
+      return questions[progress];
+  }
+
+  /*
+  function answer(uint8 a) {
+      if (a != answers[progress]) {
+	  points.push(-2000000);
+	  points.pop();
+	  event(Answered false)
+      }
+
+      // else if it was correct
+      progress++;
+      points.push_front(2000000);
+      po
+
+  */
+}

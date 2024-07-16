@@ -1,5 +1,1 @@
-
-help
-eth.blocknumber()
-eth.blocknumber
-eth.accounts
+admin.peers
